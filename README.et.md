@@ -4,7 +4,8 @@
 
 [devtailor.com](https://www.devtailor.com) (algselt tehtud Framer'iga) pikslitäpne koopia, ehitatud **Next.js 16, React 19, TypeScripti ja Tailwind CSS 4-ga**. Sait eksporditakse täielikult staatilisena ja on üleval Netlifys.
 
-- **Leht:** _lisatakse pärast avaldamist_
+- **Leht:** https://devtailor-clone.netlify.app
+- **Lähtekood:** https://github.com/siimlaanjrv-ops/devtailor-clone
 - **Lehed:** avaleht, `/projects` (koos filtritega), kõik 11 projekti `/projects/[slug]` all, `/about-us`, `/career`, `/contact` ja oma 404 leht
 - **Responsiivsus:** vastab originaalile selle kolmel Framer'i murdepunktil: mobiil (< 810 px), tahvel (810–1199 px) ja lauaarvuti (≥ 1200 px)
 

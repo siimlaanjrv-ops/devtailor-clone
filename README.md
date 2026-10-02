@@ -4,7 +4,8 @@
 
 A pixel-accurate rebuild of [devtailor.com](https://www.devtailor.com) (originally built with Framer) in **Next.js 16, React 19, TypeScript and Tailwind CSS 4**, exported as a fully static site and deployed on Netlify.
 
-- **Live site:** _added after deployment_
+- **Live site:** https://devtailor-clone.netlify.app
+- **Source:** https://github.com/siimlaanjrv-ops/devtailor-clone
 - **Pages:** home, `/projects` (with filters), all 11 case studies under `/projects/[slug]`, `/about-us`, `/career`, `/contact` and a custom 404
 - **Responsive:** matches the original at its three Framer breakpoints: mobile (< 810 px), tablet (810–1199 px) and desktop (≥ 1200 px)
 
