@@ -345,23 +345,22 @@ export function OfferProjects() {
 
 function DetailRows({ rows }: { rows: { label: string; value: string | string[] }[] }) {
   return (
+    // Each dt/dd pair sits directly in a row <div> (valid <dl> markup); the
+    // divider between rows is the row's bottom border.
     <dl className="flex flex-col gap-2.5">
-      {rows.map(({ label, value }, i) => (
-        <div key={label} className="contents">
-          <div className="flex items-start">
-            <dt className="w-1/2">{label}</dt>
-            <dd className="w-1/2 text-right">
-              {Array.isArray(value)
-                ? value.map((line, j) => (
-                    <span key={line}>
-                      {j > 0 && <br />}
-                      {line}
-                    </span>
-                  ))
-                : value}
-            </dd>
-          </div>
-          {i < rows.length - 1 && <div className="h-px bg-[#e8e8e8]" />}
+      {rows.map(({ label, value }) => (
+        <div key={label} className="flex items-start border-[#e8e8e8] not-last:border-b not-last:pb-2.5">
+          <dt className="w-1/2">{label}</dt>
+          <dd className="w-1/2 text-right">
+            {Array.isArray(value)
+              ? value.map((line, j) => (
+                  <span key={line}>
+                    {j > 0 && <br />}
+                    {line}
+                  </span>
+                ))
+              : value}
+          </dd>
         </div>
       ))}
     </dl>
@@ -389,7 +388,8 @@ export function OfferContact() {
             <div className="flex flex-col gap-1">
               <p className="font-bold">More info</p>
               <p>
-                <Link href="/" className="text-[#0099ff] underline">
+                {/* Darker than the original #0099ff, which fails WCAG contrast (2.8:1). */}
+                <Link href="/" className="text-[#0073c4] underline">
                   www.devtailor.com
                 </Link>
               </p>

@@ -119,6 +119,7 @@ The original has a few bugs. They were fixed rather than copied:
 | The offer template has no mobile layout: below 810 px its columns squeeze to about 110 px and images overlap the text.                                                           | Desktop and tablet match the original; on mobile the columns stack. |
 | The offer template's map shows Framer B.V. in Amsterdam (Framer's default map location).                                                                                         | Shows Devtailor's office at Valukoja 8/2, Tallinn.                  |
 | Missing space in "…hear from you.Whether…" on the offer template.                                                                                                                | Space added.                                                        |
+| The offer template's "www.devtailor.com" link (#0099ff on light grey) has a contrast of 2.8:1, below the WCAG minimum of 4.5:1.                                                  | Slightly darker blue (#0073c4, 4.6:1).                              |
 
 Some original content was kept as is even where it looks like a placeholder, for example the AI Procurement case study, whose "Visit website" and "See app" buttons link to framer.com, and the offer template's sample figures (XXX, 20 hours × €40).
 

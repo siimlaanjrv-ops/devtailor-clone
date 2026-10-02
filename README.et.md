@@ -119,6 +119,7 @@ Originaalis on mõned vead. Need on parandatud, mitte kopeeritud:
 | Pakkumise mallil pole mobiilivaadet: alla 810 px surutakse veerud umbes 110 px laiuseks ja pildid kattuvad tekstiga.                                                           | Lauaarvutis ja tahvlis nagu originaal; mobiilis on veerud üksteise all. |
 | Pakkumise malli kaart näitab Framer B.V. asukohta Amsterdamis (Framer'i kaardi vaikeväärtus).                                                                                  | Näitab Devtailori kontorit aadressil Valukoja 8/2, Tallinn.             |
 | Pakkumise mallil puudub tühik: „…hear from you.Whether…“.                                                                                                                      | Tühik lisatud.                                                          |
+| Pakkumise malli link „www.devtailor.com“ (#0099ff helehallil taustal) kontrast on 2,8:1, alla WCAG miinimumi 4,5:1.                                                            | Veidi tumedam sinine (#0073c4, 4,6:1).                                  |
 
 Mõni originaali sisu on jäetud samaks ka siis, kui see näib olevat kohatäide. Näiteks AI Procurementi projekti „Visit website“ ja „See app“ nupud viivad framer.com lehele ning pakkumise mallis on näidisandmed (XXX, 20 tundi × 40 €).
 
