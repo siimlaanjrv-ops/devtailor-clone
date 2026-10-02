@@ -6,7 +6,6 @@ type RevealProps = {
   children: ReactNode;
   /** up: rise 30px · down: drop 40px (hero) · scale: grow from 90% */
   effect?: "up" | "down" | "scale";
-  delay?: number;
   className?: string;
 };
 
@@ -16,7 +15,7 @@ type RevealProps = {
  * run (see the `js` class in the root layout), so content is never lost
  * without JavaScript, and `prefers-reduced-motion` disables the motion.
  */
-export function Reveal({ children, effect = "up", delay = 0, className }: RevealProps) {
+export function Reveal({ children, effect = "up", className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,12 +35,7 @@ export function Reveal({ children, effect = "up", delay = 0, className }: Reveal
   }, []);
 
   return (
-    <div
-      ref={ref}
-      data-reveal={effect}
-      style={delay ? { transitionDelay: `${delay}s` } : undefined}
-      className={className}
-    >
+    <div ref={ref} data-reveal={effect} className={className}>
       {children}
     </div>
   );

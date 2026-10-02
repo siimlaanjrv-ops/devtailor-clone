@@ -42,12 +42,22 @@ export const metadata: Metadata = {
   },
 };
 
+/*
+ * Runs before hydration:
+ * 1. Adds the `js` class that enables the <Reveal> hidden state, so content
+ *    stays visible without JavaScript.
+ * 2. Removes comment/whitespace nodes that hosts inject into <head> (Netlify
+ *    adds a "hosted on Netlify" comment), which would otherwise make React's
+ *    hydration fail and re-render the whole page on the client.
+ */
+const headScript = `document.documentElement.classList.add('js');
+for (const n of [...document.head.childNodes]) if (n.nodeType === 8 || (n.nodeType === 3 && !n.textContent.trim())) n.remove();`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${neueHaas.variable}`} suppressHydrationWarning>
       <head>
-        {/* Enables the <Reveal> hidden state only when JS is available. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: headScript }} />
       </head>
       <body>
         <Header />
