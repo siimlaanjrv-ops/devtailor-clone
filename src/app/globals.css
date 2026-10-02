@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Design tokens measured from devtailor.com.
+ * Breakpoints follow the original Framer site:
+ *   mobile  < 810px (Tailwind base styles)
+ *   tablet  810px – 1199px (`md:`)
+ *   desktop ≥ 1200px (`lg:`)
+ */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-md: 810px;
+  --breakpoint-lg: 1200px;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink: #00060d;
+  --color-body: #464646;
+  --color-accent: #ffd85e;
+  --color-surface: #f8fafc;
+  --color-card: #f5f7f8;
+  --color-divider: #d8d7da;
+  --color-peach: #ffecb3;
+  --color-blush: #ffdee5;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-neue-haas), sans-serif;
+
+  --shadow-icon: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-card: 0 1px 5px 0 rgb(0 0 0 / 0.15);
+
+  --ease-spring: cubic-bezier(0.44, 0, 0.56, 1);
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility container-site {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* Section padding used by almost every section on the site. */
+@utility section-y {
+  padding-block: 64px;
+  @variant md {
+    padding-block: 96px;
+  }
+}
+
+/*
+ * Body copy (16px / 24px). The original applies Inter's alternate glyphs
+ * (single-storey "a", flat-top "3" …) only to this text style, which also
+ * changes glyph widths and therefore line breaks.
+ */
+@utility text-copy {
+  font-size: 16px;
+  line-height: 24px;
+  font-feature-settings: "blwf", "cv03", "cv04", "cv09", "cv11";
+}
+
+/* Gradient used behind icons and highlighted stat numbers. */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(180deg, var(--color-peach) 0%, var(--color-blush) 100%);
+}
+
+/* Scroll-triggered appear effects, driven by <Reveal>. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    transition:
+      opacity 0.8s var(--ease-spring),
+      transform 0.8s var(--ease-spring);
+  }
+  .js [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+  }
+  .js [data-reveal="up"]:not([data-revealed]) {
+    transform: translateY(30px);
+  }
+  .js [data-reveal="down"]:not([data-revealed]) {
+    transform: translateY(-40px);
+  }
+  .js [data-reveal="scale"]:not([data-revealed]) {
+    transform: scale(0.9);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
 }
