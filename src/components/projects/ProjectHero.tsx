@@ -10,6 +10,7 @@ export function ProjectHero({ project }: { project: Project }) {
     <section className="relative isolate px-6 pt-[100px] pb-16 md:pb-24">
       <GradientBackdrop overlay="hero" />
       <Reveal
+        immediate
         effect="down"
         className="container-site flex flex-col gap-6 rounded-xl md:flex-row md:items-end md:bg-white md:shadow-[0_10px_15px_0_rgb(0_0_0/0.1)] lg:gap-16"
       >

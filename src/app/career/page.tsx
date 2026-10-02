@@ -26,7 +26,7 @@ export default function CareerPage() {
       <section className="relative isolate px-6 pt-[140px] pb-16 md:pb-24">
         <GradientBackdrop overlay="hero" />
         <div className="container-site flex flex-col gap-8 md:flex-row md:gap-6 lg:items-center lg:gap-8">
-          <Reveal effect="down" className="md:flex-1 lg:w-[580px] lg:flex-none">
+          <Reveal immediate effect="down" className="md:flex-1 lg:w-[580px] lg:flex-none">
             <SectionHeading
               as="h1"
               align="left"
@@ -44,7 +44,11 @@ export default function CareerPage() {
               }
             />
           </Reveal>
-          <Reveal effect="scale" className="relative aspect-[588/462] overflow-hidden rounded-xl md:flex-1">
+          <Reveal
+            immediate
+            effect="scale"
+            className="relative aspect-[588/462] overflow-hidden rounded-xl md:flex-1"
+          >
             <Image
               src="/images/career/hero.webp"
               alt="Devtailor team at work"

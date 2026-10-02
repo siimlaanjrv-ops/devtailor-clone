@@ -85,6 +85,28 @@
   .js [data-reveal="scale"]:not([data-revealed]) {
     transform: scale(0.9);
   }
+
+  /* Hero content: plays on page load without JS (see Reveal `immediate`). */
+  [data-reveal-load="down"] {
+    animation: reveal-down 0.8s var(--ease-spring) both;
+  }
+  [data-reveal-load="scale"] {
+    animation: reveal-scale 0.8s var(--ease-spring) both;
+  }
+}
+
+@keyframes reveal-down {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 }
 
 @layer base {

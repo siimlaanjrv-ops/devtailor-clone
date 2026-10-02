@@ -27,7 +27,7 @@ export default function ContactPage() {
 
       <div className="container-site flex flex-col md:flex-row md:items-center">
         <div className="flex flex-col gap-10 py-8 md:w-1/2 md:pr-[30px] lg:w-[646px] lg:pr-[120px] lg:pl-8">
-          <Reveal effect="down" className="flex flex-col gap-4">
+          <Reveal immediate effect="down" className="flex flex-col gap-4">
             <p className="leading-6 font-semibold text-ink">Contact us</p>
             <h1 className="font-display text-5xl leading-[1.2] text-ink">Get in touch. Now.</h1>
             <p className="text-lg leading-[27px] text-body">

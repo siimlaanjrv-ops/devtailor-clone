@@ -17,7 +17,7 @@ export function HomeHero() {
       <GradientBackdrop overlay="hero" />
       <div className="container-site flex flex-col items-center gap-[33px] md:gap-[62px] lg:flex-row lg:gap-[63px]">
         <div className="flex w-full flex-col gap-8 lg:flex-1">
-          <Reveal effect="down">
+          <Reveal immediate effect="down">
             <SectionHeading
               as="h1"
               align="left"
@@ -47,7 +47,7 @@ export function HomeHero() {
             ))}
           </ul>
         </div>
-        <Reveal effect="scale" className="relative aspect-[569/606] w-full lg:flex-1">
+        <Reveal immediate effect="scale" className="relative aspect-[569/606] w-full lg:flex-1">
           <Image
             src="/images/home/hero-cubes.png"
             alt=""

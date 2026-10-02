@@ -6,6 +6,12 @@ type RevealProps = {
   children: ReactNode;
   /** up: rise 30px · down: drop 40px (hero) · scale: grow from 90% */
   effect?: "up" | "down" | "scale";
+  /**
+   * Animate on page load with pure CSS instead of waiting for JavaScript and
+   * scrolling. Use for above-the-fold hero content so it paints immediately
+   * (keeps Largest Contentful Paint fast).
+   */
+  immediate?: boolean;
   className?: string;
 };
 
@@ -15,12 +21,12 @@ type RevealProps = {
  * run (see the `js` class in the root layout), so content is never lost
  * without JavaScript, and `prefers-reduced-motion` disables the motion.
  */
-export function Reveal({ children, effect = "up", className }: RevealProps) {
+export function Reveal({ children, effect = "up", immediate = false, className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || immediate) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -32,10 +38,14 @@ export function Reveal({ children, effect = "up", className }: RevealProps) {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [immediate]);
 
   return (
-    <div ref={ref} data-reveal={effect} className={className}>
+    <div
+      ref={ref}
+      {...(immediate ? { "data-reveal-load": effect } : { "data-reveal": effect })}
+      className={className}
+    >
       {children}
     </div>
   );
