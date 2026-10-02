@@ -143,3 +143,5 @@ Two production-only issues were found and fixed this way:
 ## Deployment
 
 `netlify.toml` configures everything: build command `npm run build`, publish directory `out`, Node 22, and long-term caching for hashed assets. Netlify automatically serves `out/404.html` for unknown URLs.
+
+On the Free plan, Netlify adds a "Powered by Netlify" badge to public projects. It covers the cookie banner's buttons, so it is turned off under **Project configuration → General → Powered by Netlify badge**, with a CSS rule in `globals.css` as a fallback.

@@ -143,3 +143,5 @@ Nii leiti ja parandati kaks probleemi, mis ilmnesid ainult päris serveris:
 ## Avaldamine
 
 `netlify.toml` seadistab kõik: buildi käsk `npm run build`, avaldatav kaust `out`, Node 22 ja räsiga failide pikaajaline vahemällu salvestamine. Netlify serveerib tundmatute aadresside korral automaatselt faili `out/404.html`.
+
+Tasuta paketis lisab Netlify avalikele projektidele märgi „Powered by Netlify“. See katab küpsiste bänneri nupud, mistõttu on märk välja lülitatud (**Project configuration → General → Powered by Netlify badge**) ja `globals.css` failis on varuks CSS-reegel.
