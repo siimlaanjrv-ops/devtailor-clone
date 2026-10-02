@@ -109,8 +109,29 @@ Originaalis on mõned vead. Need on parandatud, mitte kopeeritud:
 | Ettevõtte nimi on kahes kohas kirjas kui „Detavailor“.                                                                                                                         | „Devtailor“.                                              |
 | Kõigil põhilehtedel on sama `<title>` ja projektilehtede pealkirjad lõpevad „- My Framer Site“.                                                                                | Igal lehel oma pealkiri, nt „Native TV apps - Devtailor“. |
 | Projektilehtedel pole `<h1>` elementi (pealkiri on `<h2>`).                                                                                                                    | `<h1>` sama välimusega.                                   |
+| CTA-bännerite pealkiri on `<h3>` kohe lehe `<h1>` järel, `<h2>` tase jääb vahele.                                                                                              | `<h2>` sama välimusega (õige pealkirjade järjekord).      |
 
 Mõni originaali sisu on jäetud samaks ka siis, kui see näib olevat kohatäide. Näiteks AI Procurementi projekti „Visit website“ ja „See app“ nupud viivad framer.com lehele.
+
+## Kvaliteedikontrollid
+
+Mõõdetud avaldatud saidil Lighthouse'iga (avaleht; võrdluseks on originaal mõõdetud samamoodi):
+
+|                | Koopia (mobiil) | Originaal (mobiil) | Koopia (lauaarvuti) | Originaal (lauaarvuti) |
+| -------------- | --------------- | ------------------ | ------------------- | ---------------------- |
+| Jõudlus        | 89              | 73                 | 100                 | 96                     |
+| Ligipääsetavus | 100             | 97                 | 100                 | 97                     |
+| Head tavad     | 100             | 100                | 100                 | 100                    |
+| SEO            | 100             | 100                | 100                 | 100                    |
+| LCP            | 3,7 s           | 5,6 s              | 0,7 s               | 1,3 s                  |
+| CLS            | 0               | 0,05               | 0,001               | 0,001                  |
+
+Ligipääsetavus on igal lehel 100. Lisaks kontrolliti igal lehel laiustel 1440 px ja 390 px konsooli vigu, katkiseid pilte, ühe `<h1>` olemasolu, alt-tekste, unikaalseid ID-sid ja horisontaalset ülevoolu.
+
+Nii leiti ja parandati kaks probleemi, mis ilmnesid ainult päris serveris:
+
+- **Hüdratatsiooni viga Netlifys.** Netlify lisab `<head>` sisse kommentaari „hosted on Netlify“, mille tõttu React renderdas iga lehe brauseris uuesti (viga #418). Väike skript eemaldab selle enne hüdratatsiooni.
+- **Aeglane LCP mobiilis.** Hero tekst ootas enne nähtavaks muutumist JavaScripti. Ekraani ülaosa animatsioonid käivituvad nüüd puhta CSS-iga kohe laadimisel, mis vähendas LCP elemendi viivitust ligikaudu 1,3 sekundilt 0,17 sekundile.
 
 ## Kolmandate osapoolte materjalid
 

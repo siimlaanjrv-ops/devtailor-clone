@@ -11,7 +11,7 @@ type GradientBackdropProps = {
 export function GradientBackdrop({ overlay = "default", className }: GradientBackdropProps) {
   return (
     <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 overflow-hidden", className)}>
-      <Image src="/images/gradient-bg.png" alt="" fill sizes="100vw" className="object-cover" priority />
+      <Image src="/images/gradient-bg.webp" alt="" fill sizes="100vw" className="object-cover" priority />
       {overlay !== "none" && (
         <div
           className={cn(

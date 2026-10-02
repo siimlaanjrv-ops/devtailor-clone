@@ -82,7 +82,7 @@ export default function HomePage() {
           "Ensure your AI solutions are ethical, secure, and scalable",
         ]}
         cta={{ label: "Book a free consultation with our CEO", href: CEO_CALENDAR_URL }}
-        photo="/images/team/rutmar-silde.jpg"
+        photo="/images/team/rutmar-silde.webp"
         role="Our head-tailor, the CEO"
         name="Rutmar Silde"
       />
@@ -127,7 +127,7 @@ export default function HomePage() {
           "Secure API gateways and access control mechanisms",
         ]}
         cta={{ label: "Book a free consultation with our CTO", href: CTO_CALENDAR_URL }}
-        photo="/images/team/janno-stern.jpg"
+        photo="/images/team/janno-stern.webp"
         role="Our master of patterns, the CTO"
         name="Janno Stern"
       />

@@ -47,7 +47,7 @@ export function CtaBanner({ title, text, cta, variant = "gradient" }: CtaBannerP
         )}
         <div className={cn("flex gap-8", l.row)}>
           <div className={cn("flex flex-col gap-4", l.copy)}>
-            <h3 className="font-display text-2xl leading-[1.4] text-ink">{title}</h3>
+            <h2 className="font-display text-2xl leading-[1.4] text-ink">{title}</h2>
             <p className="text-copy text-body">{text}</p>
           </div>
           <Button href={cta.href} className="max-md:w-full">

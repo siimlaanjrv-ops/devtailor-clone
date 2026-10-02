@@ -109,8 +109,29 @@ The original has a few bugs. They were fixed rather than copied:
 | The company name is misspelled "Detavailor" in two places.                                                                                                                       | "Devtailor".                                                |
 | Every main page has the same `<title>`, and case studies end with "- My Framer Site".                                                                                            | A unique title per page, e.g. "Native TV apps - Devtailor". |
 | Case studies have no `<h1>` (the title is an `<h2>`).                                                                                                                            | `<h1>` with the same styling.                               |
+| Call-to-action banners use `<h3>` directly after the page `<h1>`, skipping a level.                                                                                              | `<h2>` with the same styling (correct heading order).       |
 
 Some original content was kept as is even where it looks like a placeholder, for example the AI Procurement case study, whose "Visit website" and "See app" buttons link to framer.com.
+
+## Quality checks
+
+Measured on the deployed site with Lighthouse (home page; the original was measured the same way for comparison):
+
+|                | Clone (mobile) | Original (mobile) | Clone (desktop) | Original (desktop) |
+| -------------- | -------------- | ----------------- | --------------- | ------------------ |
+| Performance    | 89             | 73                | 100             | 96                 |
+| Accessibility  | 100            | 97                | 100             | 97                 |
+| Best Practices | 100            | 100               | 100             | 100                |
+| SEO            | 100            | 100               | 100             | 100                |
+| LCP            | 3.7 s          | 5.6 s             | 0.7 s           | 1.3 s              |
+| CLS            | 0              | 0.05              | 0.001           | 0.001              |
+
+Accessibility is 100 on every page. Every route was also checked for console errors, broken images, a single `<h1>`, alt text, unique IDs and horizontal overflow at 1440 px and 390 px.
+
+Two production-only issues were found and fixed this way:
+
+- **Hydration error on Netlify.** Netlify injects a "hosted on Netlify" comment into `<head>`, which made React re-render every page on the client (error #418). A small inline script removes it before hydration.
+- **Slow LCP on mobile.** Hero text waited for JavaScript before fading in. Above-the-fold reveals now run as pure CSS animations on load, which cut the LCP element render delay from about 1.3 s to 0.17 s.
 
 ## Third-party assets
 

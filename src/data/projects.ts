@@ -429,12 +429,12 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        src: "/images/projects/ai-procurement/gallery-1.png",
+        src: "/images/projects/ai-procurement/gallery-1.webp",
         width: 800,
         height: 1062,
       },
       {
-        src: "/images/projects/ai-procurement/gallery-2.png",
+        src: "/images/projects/ai-procurement/gallery-2.webp",
         width: 800,
         height: 1000,
       },
@@ -444,7 +444,7 @@ export const projects: Project[] = [
         height: 1143,
       },
       {
-        src: "/images/projects/ai-procurement/gallery-2.png",
+        src: "/images/projects/ai-procurement/gallery-2.webp",
         width: 800,
         height: 1000,
       },
@@ -544,7 +544,7 @@ export const projects: Project[] = [
       "Citizen-Centric Design: Enhancing accessibility and efficiency for everyone",
     ],
     image: {
-      src: "/images/projects/fleetbrains/card.png",
+      src: "/images/projects/fleetbrains/card.webp",
       width: 800,
       height: 472,
     },
@@ -647,7 +647,7 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        src: "/images/projects/jupiter/gallery-1.png",
+        src: "/images/projects/jupiter/gallery-1.webp",
         width: 800,
         height: 433,
       },
