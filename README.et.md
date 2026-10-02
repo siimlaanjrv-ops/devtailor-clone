@@ -6,7 +6,7 @@
 
 - **Leht:** https://devtailor-clone.netlify.app
 - **Lähtekood:** https://github.com/siimlaanjrv-ops/devtailor-clone
-- **Lehed:** avaleht, `/projects` (koos filtritega), kõik 11 projekti `/projects/[slug]` all, `/about-us`, `/career`, `/contact` ja oma 404 leht
+- **Lehed:** kõik 17 originaali sitemap'is olevat lehte: avaleht, `/projects` (koos filtritega), kõik 11 projekti `/projects/[slug]` all, `/about-us`, `/career`, `/contact` ja eraldiseisev pakkumise mall `/offer-templates/devtailor`, lisaks oma 404 leht
 - **Responsiivsus:** vastab originaalile selle kolmel Framer'i murdepunktil: mobiil (< 810 px), tahvel (810–1199 px) ja lauaarvuti (≥ 1200 px)
 
 ## Käivitamine
@@ -44,22 +44,27 @@ npx serve out      # lõppversiooni eelvaade
 ```
 src/
 ├── app/                      # Marsruudid (App Router)
-│   ├── layout.tsx            # Fondid, metaandmed, päis, jalus, küpsiste bänner
+│   ├── layout.tsx            # Juurpaigutus: fondid, metaandmed, enne hüdratatsiooni käivituv skript
 │   ├── globals.css           # Tailwind, disainiväärtused, oma utiliidid
-│   ├── page.tsx              # Avaleht
-│   ├── projects/page.tsx     # Projektide nimekiri filtritega
-│   ├── projects/[slug]/      # Projekti mall (genereeritakse kõigile 11 projektile)
-│   ├── about-us/, career/, contact/
+│   ├── (site)/               # Route group: lehed koos päise, jaluse ja küpsiste bänneriga
+│   │   ├── layout.tsx
+│   │   ├── page.tsx          # Avaleht
+│   │   ├── projects/page.tsx # Projektide nimekiri filtritega
+│   │   ├── projects/[slug]/  # Projekti mall (genereeritakse kõigile 11 projektile)
+│   │   └── about-us/, career/, contact/
+│   ├── offer-templates/devtailor/  # Eraldiseisev pakkumise leht (ilma saidi päise ja jaluseta)
+│   ├── sitemap.ts, robots.ts # Genereeritud sitemap.xml ja robots.txt
 │   └── not-found.tsx         # Oma 404 leht
 ├── components/
 │   ├── ui/                   # Väikesed ehitusklotsid: Button, Section, SectionHeading, Reveal, …
-│   ├── layout/               # Päis (+ mobiilimenüü), jalus, küpsiste bänner, keelevalik
+│   ├── layout/               # Päis (+ mobiilimenüü), jalus, küpsiste bänner, keelevalik, SiteChrome
 │   ├── sections/             # Korduvad sektsioonid: PageHero, FeatureGrid, StatsSection, CtaBanner, …
-│   ├── home/, about/, contact/, projects/   # Lehepõhised komponendid
+│   ├── home/, about/, contact/, projects/, offer/   # Lehepõhised komponendid
 │   └── icons.tsx             # Originaali ikoonid React-komponentidena
 ├── data/
 │   ├── projects.ts           # Kõik 11 projekti (tüübitud)
-│   └── site.ts               # Navigatsioon ja broneerimislingid
+│   ├── offer.ts              # Pakkumise malli sisu
+│   └── site.ts               # Saidi aadress, navigatsioon ja broneerimislingid
 ├── fonts/                    # Inter + Neue Haas Unica (woff2)
 └── lib/cn.ts                 # Klassinimede abifunktsioon
 public/images/                # Optimeeritud pildid loetavate nimedega
@@ -68,6 +73,7 @@ public/images/                # Optimeeritud pildid loetavate nimedega
 ### Kuidas see kokku töötab
 
 - **Sisu on andmetes, mitte mallides.** `src/data/projects.ts` sisaldab iga projekti pealkirja, kokkuvõtet, teenuseid, sektoreid, tehnoloogiaid, küsimusi ja vastuseid ning galeriid. Üks mall (`projects/[slug]/page.tsx`) renderdab kõik 11 lehte. `generateStaticParams` genereerib need ette ja `dynamicParams = false` muudab tundmatu aadressi 404-ks. `/projects` filter ja „See more.“ plokk loevad samast massiivist.
+- **Paigutused route group'iga.** Originaali pakkumise mallil pole saidi päist ega jalust. Tavalised lehed asuvad `(site)` route group'is, mille paigutus need lisab. Grupi nimi URL-is ei kajastu.
 - **Komponendid on kihtidena.** `ui/` sisaldab baaskomponente, mis lehtedest midagi ei tea. `sections/` paneb need kokku sektsioonideks, mis korduvad mitmel lehel (näiteks `StatsSection` on avalehel nelja veeruga ja About-lehel kolme veeruga koos siltidega). Lehepõhistes kaustades on see, mida kasutatakse ainult ühes kohas.
 - **Vaikimisi serverikomponendid.** Brauseris töötab ainult viis komponenti: `Header` (menüü olek), `ProjectsExplorer` (filtri olek), `CookieBanner` (localStorage), `HubSpotForm` (välise teenuse skript) ja `Reveal` (IntersectionObserver). Kõik muu jõuab brauserisse puhta HTML-ina.
 - **Disainiväärtused** (värvid, fondid, varjud, murdepunktid) on defineeritud üks kord `globals.css` failis `@theme` all ja murdepunktid on originaali järgi 810 px ja 1200 px. Korduvate mustrite jaoks on oma utiliidid: `container-site` (1200 px veerg), `section-y` (64/96 px sektsiooni vahed), `text-copy` (põhiteksti stiil) ja `bg-brand-gradient`.
@@ -101,17 +107,22 @@ Mõned mitteilmsed leiud:
 
 Originaalis on mõned vead. Need on parandatud, mitte kopeeritud:
 
-| Originaal                                                                                                                                                                      | Koopia                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
-| Avalehe nimekirja viimane punkt („Ensure your AI solutions are ethical…“) ja Career lehe viimane eelis (tahvlis) ei muutu kunagi nähtavaks, sest nende animatsioon ei käivitu. | Nähtavad.                                                 |
-| Tahvlis on protsessi sammud järjekorras 1, 4, 2, 5, 3, 6.                                                                                                                      | Järjekorras 1–6.                                          |
-| Career lehe „See open positions“ on ilma lingita nupp.                                                                                                                         | Avab e-kirja aadressile hello@devtailor.com.              |
-| Ettevõtte nimi on kahes kohas kirjas kui „Detavailor“.                                                                                                                         | „Devtailor“.                                              |
-| Kõigil põhilehtedel on sama `<title>` ja projektilehtede pealkirjad lõpevad „- My Framer Site“.                                                                                | Igal lehel oma pealkiri, nt „Native TV apps - Devtailor“. |
-| Projektilehtedel pole `<h1>` elementi (pealkiri on `<h2>`).                                                                                                                    | `<h1>` sama välimusega.                                   |
-| CTA-bännerite pealkiri on `<h3>` kohe lehe `<h1>` järel, `<h2>` tase jääb vahele.                                                                                              | `<h2>` sama välimusega (õige pealkirjade järjekord).      |
+| Originaal                                                                                                                                                                      | Koopia                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| Avalehe nimekirja viimane punkt („Ensure your AI solutions are ethical…“) ja Career lehe viimane eelis (tahvlis) ei muutu kunagi nähtavaks, sest nende animatsioon ei käivitu. | Nähtavad.                                                               |
+| Tahvlis on protsessi sammud järjekorras 1, 4, 2, 5, 3, 6.                                                                                                                      | Järjekorras 1–6.                                                        |
+| Career lehe „See open positions“ on ilma lingita nupp.                                                                                                                         | Avab e-kirja aadressile hello@devtailor.com.                            |
+| Ettevõtte nimi on kahes kohas kirjas kui „Detavailor“.                                                                                                                         | „Devtailor“.                                                            |
+| Kõigil põhilehtedel on sama `<title>` ja projektilehtede pealkirjad lõpevad „- My Framer Site“.                                                                                | Igal lehel oma pealkiri, nt „Native TV apps - Devtailor“.               |
+| Projektilehtedel pole `<h1>` elementi (pealkiri on `<h2>`).                                                                                                                    | `<h1>` sama välimusega.                                                 |
+| CTA-bännerite pealkiri on `<h3>` kohe lehe `<h1>` järel, `<h2>` tase jääb vahele.                                                                                              | `<h2>` sama välimusega (õige pealkirjade järjekord).                    |
+| Pakkumise mallil pole mobiilivaadet: alla 810 px surutakse veerud umbes 110 px laiuseks ja pildid kattuvad tekstiga.                                                           | Lauaarvutis ja tahvlis nagu originaal; mobiilis on veerud üksteise all. |
+| Pakkumise malli kaart näitab Framer B.V. asukohta Amsterdamis (Framer'i kaardi vaikeväärtus).                                                                                  | Näitab Devtailori kontorit aadressil Valukoja 8/2, Tallinn.             |
+| Pakkumise mallil puudub tühik: „…hear from you.Whether…“.                                                                                                                      | Tühik lisatud.                                                          |
 
-Mõni originaali sisu on jäetud samaks ka siis, kui see näib olevat kohatäide. Näiteks AI Procurementi projekti „Visit website“ ja „See app“ nupud viivad framer.com lehele.
+Mõni originaali sisu on jäetud samaks ka siis, kui see näib olevat kohatäide. Näiteks AI Procurementi projekti „Visit website“ ja „See app“ nupud viivad framer.com lehele ning pakkumise mallis on näidisandmed (XXX, 20 tundi × 40 €).
+
+Pakkumise mallile (`/offer-templates/devtailor`) ei vii originaalis ükski link, see on ainult originaali `sitemap.xml` failis. Leht on tehtud selleks, et kõik avalikud lehed oleksid kaetud.
 
 ## Kvaliteedikontrollid
 
@@ -143,5 +154,7 @@ Nii leiti ja parandati kaks probleemi, mis ilmnesid ainult päris serveris:
 ## Avaldamine
 
 `netlify.toml` seadistab kõik: buildi käsk `npm run build`, avaldatav kaust `out`, Node 22 ja räsiga failide pikaajaline vahemällu salvestamine. Netlify serveerib tundmatute aadresside korral automaatselt faili `out/404.html`.
+
+Next.js 16 staatiline eksport kirjutab kliendipoolse navigeerimise eellaadimise failid kujul `__next.<segment>/__PAGE__.txt`, aga brauser küsib `__next.<segment>.__PAGE__.txt`. Netlify lahendab selle automaatselt. Tavaline staatiline server, näiteks `npx serve out`, seda ei tee, mistõttu lokaalses eelvaates tekivad nende eellaadimiste puhul ohutud 404-d (navigeerimine töötab).
 
 Tasuta paketis lisab Netlify avalikele projektidele märgi „Powered by Netlify“. See katab küpsiste bänneri nupud, mistõttu on märk välja lülitatud (**Project configuration → General → Powered by Netlify badge**) ja `globals.css` failis on varuks CSS-reegel.

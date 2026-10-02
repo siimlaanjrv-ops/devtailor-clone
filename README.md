@@ -6,7 +6,7 @@ A pixel-accurate rebuild of [devtailor.com](https://www.devtailor.com) (original
 
 - **Live site:** https://devtailor-clone.netlify.app
 - **Source:** https://github.com/siimlaanjrv-ops/devtailor-clone
-- **Pages:** home, `/projects` (with filters), all 11 case studies under `/projects/[slug]`, `/about-us`, `/career`, `/contact` and a custom 404
+- **Pages:** all 17 pages in the original's sitemap: home, `/projects` (with filters), all 11 case studies under `/projects/[slug]`, `/about-us`, `/career`, `/contact` and the standalone offer template `/offer-templates/devtailor`, plus a custom 404
 - **Responsive:** matches the original at its three Framer breakpoints: mobile (< 810 px), tablet (810–1199 px) and desktop (≥ 1200 px)
 
 ## Getting started
@@ -44,22 +44,27 @@ npx serve out      # preview the production build
 ```
 src/
 ├── app/                      # Routes (App Router)
-│   ├── layout.tsx            # Fonts, metadata, header, footer, cookie banner
+│   ├── layout.tsx            # Root: fonts, metadata, pre-hydration script
 │   ├── globals.css           # Tailwind import, design tokens, custom utilities
-│   ├── page.tsx              # Home
-│   ├── projects/page.tsx     # Project list with filters
-│   ├── projects/[slug]/      # Case study template (pre-rendered for all 11 projects)
-│   ├── about-us/, career/, contact/
+│   ├── (site)/               # Route group: pages with header, footer and cookie banner
+│   │   ├── layout.tsx
+│   │   ├── page.tsx          # Home
+│   │   ├── projects/page.tsx # Project list with filters
+│   │   ├── projects/[slug]/  # Case study template (pre-rendered for all 11 projects)
+│   │   └── about-us/, career/, contact/
+│   ├── offer-templates/devtailor/  # Standalone offer page (no site header/footer)
+│   ├── sitemap.ts, robots.ts # Generated sitemap.xml and robots.txt
 │   └── not-found.tsx         # Custom 404
 ├── components/
 │   ├── ui/                   # Small building blocks: Button, Section, SectionHeading, Reveal, …
-│   ├── layout/               # Header (+ mobile menu), Footer, CookieBanner, LanguageSelect
+│   ├── layout/               # Header (+ mobile menu), Footer, CookieBanner, LanguageSelect, SiteChrome
 │   ├── sections/             # Reusable page sections: PageHero, FeatureGrid, StatsSection, CtaBanner, …
-│   ├── home/, about/, contact/, projects/   # Page-specific components
+│   ├── home/, about/, contact/, projects/, offer/   # Page-specific components
 │   └── icons.tsx             # Line icons from the original, as React components
 ├── data/
 │   ├── projects.ts           # All 11 case studies (typed)
-│   └── site.ts               # Navigation and booking links
+│   ├── offer.ts              # Offer template content
+│   └── site.ts               # Site URL, navigation and booking links
 ├── fonts/                    # Inter + Neue Haas Unica (woff2)
 └── lib/cn.ts                 # Class-name helper
 public/images/                # Optimised images with readable names
@@ -68,6 +73,7 @@ public/images/                # Optimised images with readable names
 ### How it fits together
 
 - **Content lives in data, not in templates.** `src/data/projects.ts` holds every case study: title, summary, services, sectors, technologies, Q&A and gallery. One template (`projects/[slug]/page.tsx`) renders all 11 pages. `generateStaticParams` pre-renders them, and `dynamicParams = false` makes any unknown slug a 404. The `/projects` filter and the "See more." block read from the same array.
+- **Layouts via a route group.** The original's offer template has no site header or footer. The regular pages live in the `(site)` route group, whose layout adds them; the group name does not appear in URLs.
 - **Components are layered.** `ui/` holds primitives with no page knowledge. `sections/` combines them into sections that appear on several pages (for example `StatsSection` is used on home with 4 columns and on About with 3 columns plus labels). Page folders hold anything used once.
 - **Server Components by default.** Only five components run in the browser: `Header` (menu state), `ProjectsExplorer` (filter state), `CookieBanner` (localStorage), `HubSpotForm` (third-party script) and `Reveal` (IntersectionObserver). Everything else ships as HTML only.
 - **Design tokens** (colours, fonts, shadows, breakpoints) are defined once in `globals.css` under `@theme`, and the breakpoints are set to the original's 810 px and 1200 px. Custom utilities cover the repeated patterns: `container-site` (1200 px column), `section-y` (64/96 px section padding), `text-copy` (body text style) and `bg-brand-gradient`.
@@ -101,17 +107,22 @@ A few non-obvious findings from this process:
 
 The original has a few bugs. They were fixed rather than copied:
 
-| Original                                                                                                                                                                         | Clone                                                       |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| The last checklist item on home ("Ensure your AI solutions are ethical…") and the last perk on Career (tablet) never become visible, because their appear animation never fires. | Visible.                                                    |
-| On tablet the process steps read 1, 4, 2, 5, 3, 6.                                                                                                                               | 1–6 in order.                                               |
-| "See open positions" on Career is a button with no link.                                                                                                                         | Opens an email to hello@devtailor.com.                      |
-| The company name is misspelled "Detavailor" in two places.                                                                                                                       | "Devtailor".                                                |
-| Every main page has the same `<title>`, and case studies end with "- My Framer Site".                                                                                            | A unique title per page, e.g. "Native TV apps - Devtailor". |
-| Case studies have no `<h1>` (the title is an `<h2>`).                                                                                                                            | `<h1>` with the same styling.                               |
-| Call-to-action banners use `<h3>` directly after the page `<h1>`, skipping a level.                                                                                              | `<h2>` with the same styling (correct heading order).       |
+| Original                                                                                                                                                                         | Clone                                                               |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| The last checklist item on home ("Ensure your AI solutions are ethical…") and the last perk on Career (tablet) never become visible, because their appear animation never fires. | Visible.                                                            |
+| On tablet the process steps read 1, 4, 2, 5, 3, 6.                                                                                                                               | 1–6 in order.                                                       |
+| "See open positions" on Career is a button with no link.                                                                                                                         | Opens an email to hello@devtailor.com.                              |
+| The company name is misspelled "Detavailor" in two places.                                                                                                                       | "Devtailor".                                                        |
+| Every main page has the same `<title>`, and case studies end with "- My Framer Site".                                                                                            | A unique title per page, e.g. "Native TV apps - Devtailor".         |
+| Case studies have no `<h1>` (the title is an `<h2>`).                                                                                                                            | `<h1>` with the same styling.                                       |
+| Call-to-action banners use `<h3>` directly after the page `<h1>`, skipping a level.                                                                                              | `<h2>` with the same styling (correct heading order).               |
+| The offer template has no mobile layout: below 810 px its columns squeeze to about 110 px and images overlap the text.                                                           | Desktop and tablet match the original; on mobile the columns stack. |
+| The offer template's map shows Framer B.V. in Amsterdam (Framer's default map location).                                                                                         | Shows Devtailor's office at Valukoja 8/2, Tallinn.                  |
+| Missing space in "…hear from you.Whether…" on the offer template.                                                                                                                | Space added.                                                        |
 
-Some original content was kept as is even where it looks like a placeholder, for example the AI Procurement case study, whose "Visit website" and "See app" buttons link to framer.com.
+Some original content was kept as is even where it looks like a placeholder, for example the AI Procurement case study, whose "Visit website" and "See app" buttons link to framer.com, and the offer template's sample figures (XXX, 20 hours × €40).
+
+The offer template (`/offer-templates/devtailor`) is not linked from any page of the original; it is only listed in the original's `sitemap.xml`. It was included so that every public page is covered.
 
 ## Quality checks
 
@@ -143,5 +154,7 @@ Two production-only issues were found and fixed this way:
 ## Deployment
 
 `netlify.toml` configures everything: build command `npm run build`, publish directory `out`, Node 22, and long-term caching for hashed assets. Netlify automatically serves `out/404.html` for unknown URLs.
+
+Next.js 16's static export writes client-navigation prefetch files as `__next.<segment>/__PAGE__.txt` while the browser requests `__next.<segment>.__PAGE__.txt`. Netlify resolves this automatically; a plain static server such as `npx serve out` does not, so local previews show harmless 404s for those prefetches (navigation still works).
 
 On the Free plan, Netlify adds a "Powered by Netlify" badge to public projects. It covers the cookie banner's buttons, so it is turned off under **Project configuration → General → Powered by Netlify badge**, with a CSS rule in `globals.css` as a fallback.
