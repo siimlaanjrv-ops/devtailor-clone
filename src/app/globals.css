@@ -109,6 +109,15 @@
   }
 }
 
+/*
+ * Netlify's Free-plan "Powered by Netlify" badge sits bottom-right on top of
+ * the cookie banner's buttons. It is switched off in the project settings;
+ * this is the CSS fallback Netlify documents, in case it gets re-enabled.
+ */
+#nl-badge-frame {
+  display: none !important;
+}
+
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
