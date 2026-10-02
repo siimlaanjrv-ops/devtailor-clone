@@ -1,3 +1,6 @@
+/** Public URL of this clone (used for absolute metadata, sitemap and robots). */
+export const SITE_URL = "https://devtailor-clone.netlify.app";
+
 export const CEO_CALENDAR_URL = "https://calendar.app.google/Zq7BRyqXL9rCwWiz6";
 export const CTO_CALENDAR_URL = "https://calendar.app.google/vLEHgzeGHtSF25rMA";
 

@@ -4,8 +4,8 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 type RevealProps = {
   children: ReactNode;
-  /** up: rise 30px · down: drop 40px (hero) · scale: grow from 90% */
-  effect?: "up" | "down" | "scale";
+  /** up: rise 30px · down: drop 40px (hero) · scale: grow from 90% · blur: sharpen from a blur */
+  effect?: "up" | "down" | "scale" | "blur";
   /**
    * Animate on page load with pure CSS instead of waiting for JavaScript and
    * scrolling. Use for above-the-fold hero content so it paints immediately

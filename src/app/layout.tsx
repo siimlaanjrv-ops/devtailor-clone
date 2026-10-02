@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { CookieBanner } from "@/components/layout/CookieBanner";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
+import { SITE_URL } from "@/data/site";
 import "./globals.css";
 
 // Inter 4.0 (OFL), the same latin build the original serves. Google Fonts'
@@ -27,7 +25,7 @@ const description =
   "Tailored AI that delivers results. We design and build ethical, secure, and scalable solutions—from automation and data analysis to custom tools—with rapid prototyping and 10+ years of experience.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.devtailor.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Devtailor — Tailored AI Solutions That Deliver Real Business Value",
     template: "%s - Devtailor",
@@ -59,12 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: headScript }} />
       </head>
-      <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <CookieBanner />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

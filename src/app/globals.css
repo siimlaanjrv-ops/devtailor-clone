@@ -71,7 +71,8 @@
   .js [data-reveal] {
     transition:
       opacity 0.8s var(--ease-spring),
-      transform 0.8s var(--ease-spring);
+      transform 0.8s var(--ease-spring),
+      filter 0.8s var(--ease-spring);
   }
   .js [data-reveal]:not([data-revealed]) {
     opacity: 0;
@@ -84,6 +85,9 @@
   }
   .js [data-reveal="scale"]:not([data-revealed]) {
     transform: scale(0.9);
+  }
+  .js [data-reveal="blur"]:not([data-revealed]) {
+    filter: blur(10px);
   }
 
   /* Hero content: plays on page load without JS (see Reveal `immediate`). */
