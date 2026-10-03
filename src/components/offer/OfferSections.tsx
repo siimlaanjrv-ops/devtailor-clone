@@ -84,9 +84,10 @@ function OfferSection({
   );
 }
 
+/** Full-viewport hero: the original uses 100vh here, so it follows the window height. */
 export function OfferHero() {
   return (
-    <section className={cn(sectionLine, "isolate flex h-[900px] items-center justify-center bg-card px-6")}>
+    <section className={cn(sectionLine, "isolate flex h-screen items-center justify-center bg-card px-6")}>
       <Image
         src="/images/offer/hero.webp"
         alt=""

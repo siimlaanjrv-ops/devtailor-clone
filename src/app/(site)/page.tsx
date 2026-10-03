@@ -95,6 +95,7 @@ export default function HomePage() {
         title="Quick to success. Backed by experience."
         stats={stats}
         columnsClassName="md:grid-cols-4"
+        titleClassName="max-md:text-left"
       />
       <Testimonials />
       <FeaturedProjects

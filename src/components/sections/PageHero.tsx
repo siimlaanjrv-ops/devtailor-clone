@@ -9,7 +9,8 @@ export function PageHero({ title, intro }: { title: ReactNode; intro: ReactNode 
       <GradientBackdrop overlay="hero" />
       <Reveal immediate effect="down" className="container-site">
         <div className="mx-auto flex max-w-[580px] flex-col gap-5 text-center">
-          <h1 className="font-display text-5xl leading-[1.2] text-ink">{title}</h1>
+          {/* Framer preserves the space before a <br>, which shifts centred lines; pre-wrap does the same. */}
+          <h1 className="font-display text-5xl leading-[1.2] whitespace-pre-wrap text-ink">{title}</h1>
           <p className="text-lg leading-[27px] text-body">{intro}</p>
         </div>
       </Reveal>

@@ -45,7 +45,8 @@ export function LeaderSection({ title, text, points, cta, photo, role, name, mut
             className="object-cover"
           />
         </Reveal>
-        <figcaption className="text-copy text-right text-body">
+        {/* pre-wrap keeps the space before the mobile <br>, which Framer counts in the right alignment. */}
+        <figcaption className="text-copy text-right whitespace-pre-wrap text-body">
           {role} <br className="md:hidden" />
           <strong className="font-bold">{name}.</strong>
         </figcaption>

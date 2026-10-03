@@ -29,7 +29,9 @@ export function TeamSection() {
   return (
     <Section muted containerClassName="flex flex-col gap-12">
       <Reveal>
+        {/* pre-wrap keeps the space before <br>, as Framer does, so the centring matches. */}
         <SectionHeading
+          className="whitespace-pre-wrap"
           title={
             <>
               Teamwork-driven. <br />

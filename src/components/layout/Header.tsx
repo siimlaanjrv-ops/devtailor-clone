@@ -60,6 +60,7 @@ export function Header() {
 
         <nav
           id="site-nav"
+          aria-label="Main"
           className={cn(
             "mt-8 flex flex-col items-center gap-1.5 transition-[visibility] duration-300",
             "md:visible md:mt-0 md:flex-row md:justify-end md:gap-4",

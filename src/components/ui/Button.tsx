@@ -15,7 +15,10 @@ const variants = {
 
 /**
  * Pill button with the original's "rolling text" hover: the label is
- * rendered twice in a 24px-tall clip and slides up on hover.
+ * rendered twice in a 24px-tall clip and slides up on hover. Like Framer's
+ * text, the label never wraps: on a 360px phone the longest label is wider
+ * than the padded box and overflows evenly into the padding instead of
+ * dropping its last word below the clip.
  */
 export function Button({ href, children, variant = "accent", className }: ButtonProps) {
   const classes = cn(
@@ -24,7 +27,7 @@ export function Button({ href, children, variant = "accent", className }: Button
     className,
   );
   const label = (
-    <span className="flex h-6 flex-col items-center overflow-hidden">
+    <span className="flex h-6 shrink-0 flex-col items-center overflow-hidden whitespace-nowrap">
       <span className="leading-[28.8px] transition-transform duration-300 ease-out group-hover:-translate-y-[28.8px]">
         {children}
       </span>

@@ -11,19 +11,27 @@ type StatsSectionProps = {
   stats: Stat[];
   /** Grid classes for tablet/desktop columns. */
   columnsClassName: string;
+  /** Home left-aligns the title on mobile; About keeps it centred. */
+  titleClassName?: string;
 };
 
 /**
  * Dark stat cards sitting flush on the bottom edge of a gradient band
  * (on mobile they merge into one rounded stack).
  */
-export function StatsSection({ title, description, stats, columnsClassName }: StatsSectionProps) {
+export function StatsSection({
+  title,
+  description,
+  stats,
+  columnsClassName,
+  titleClassName,
+}: StatsSectionProps) {
   return (
     <section className="relative isolate px-6 pt-16 max-md:pb-16 md:pt-24">
       <GradientBackdrop overlay="none" />
       <div className="container-site flex flex-col gap-12">
         <Reveal>
-          <SectionHeading title={title} description={description} />
+          <SectionHeading title={title} description={description} className={titleClassName} />
         </Reveal>
         <ul
           className={cn(

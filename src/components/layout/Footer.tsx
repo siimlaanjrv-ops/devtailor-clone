@@ -16,7 +16,7 @@ export function Footer() {
           >
             <Image src="/images/logo.svg" alt="Devtailor Software" width={112} height={32} />
           </Link>
-          <nav className="flex flex-col items-center gap-1.5 md:flex-row md:gap-3">
+          <nav aria-label="Footer" className="flex flex-col items-center gap-1.5 md:flex-row md:gap-3">
             {footerNav.map((item) => (
               <NavLink key={item.href} href={item.href}>
                 {item.label}
