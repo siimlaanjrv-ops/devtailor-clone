@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDownIcon } from "@/components/icons";
 import { projects, sectors, services } from "@/data/projects";
+import { cn } from "@/lib/cn";
 import { ProjectTile } from "./ProjectTile";
 
 const ALL = "all";
@@ -58,14 +59,30 @@ type FilterSelectProps = {
   options: readonly string[];
 };
 
+/*
+ * The native <select> is layered invisibly over the styled 14px label: iOS
+ * Safari zooms the page into any form control whose font is under 16px, so
+ * the control itself keeps the 16px inherited font.
+ */
 function FilterSelect({ label, value, onChange, allLabel, options }: FilterSelectProps) {
   return (
-    <div className="relative w-full md:w-auto">
+    <div className="relative h-10 w-full rounded-lg bg-[#f0f0f0] has-focus-visible:outline-2 has-focus-visible:outline-ink md:w-auto">
+      {/* Every label shares one grid cell so the width fits the longest, like a native select. */}
+      <span
+        aria-hidden
+        className="grid h-full items-center py-2.5 pr-[38px] pl-4 text-sm leading-[19.6px] whitespace-nowrap text-black"
+      >
+        {[ALL, ...options].map((option) => (
+          <span key={option} className={cn("[grid-area:1/1]", option !== value && "invisible")}>
+            {option === ALL ? allLabel : option}
+          </span>
+        ))}
+      </span>
       <select
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-10 w-full cursor-pointer appearance-none rounded-lg bg-[#f0f0f0] py-2.5 pr-[38px] pl-4 text-sm leading-[19.6px] text-black"
+        className="absolute inset-0 cursor-pointer appearance-none opacity-0 outline-none"
       >
         <option value={ALL}>{allLabel}</option>
         {options.map((option) => (

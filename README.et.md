@@ -145,6 +145,8 @@ Nii leiti ja parandati kaks probleemi, mis ilmnesid ainult päris serveris:
 - **Hüdratatsiooni viga Netlifys.** Netlify lisab `<head>` sisse kommentaari „hosted on Netlify“, mille tõttu React renderdas iga lehe brauseris uuesti (viga #418). Väike skript eemaldab selle enne hüdratatsiooni.
 - **Aeglane LCP mobiilis.** Hero tekst ootas enne nähtavaks muutumist JavaScripti. Ekraani ülaosa animatsioonid käivituvad nüüd puhta CSS-iga kohe laadimisel, mis vähendas LCP elemendi viivitust ligikaudu 1,3 sekundilt 0,17 sekundile.
 
+Mobiilibrausereid (iOS ja Android) kontrolliti eraldi. Kõiki lehti vaadati 360, 390 ja 430 px laiusel, et poleks külgsuunalist kerimist. `/projects` lehe filtrite natiivsete valikukastide font on 16 px ja nende peal on 14 px silt, nii et iOS Safari ei suumi neile vajutades lehte sisse. Lisatud on ka Apple'i avaekraani ikoon (iOS ei kasuta avaekraanil SVG-ikooni) ja `theme-color`, mis toonib brauseririba mobiilipäisega sama värvi.
+
 ## Kolmandate osapoolte materjalid
 
 - **Neue Haas Unica W1G** on Monotype'i tasuline kirjatüüp, mille litsents on Devtailoril devtailor.com jaoks. See on kaasas ainult seetõttu, et tegu on Devtailori kodutööga, ja seda ei tohi mujal kasutada.

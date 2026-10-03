@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { SITE_URL } from "@/data/site";
 import "./globals.css";
@@ -37,7 +37,14 @@ export const metadata: Metadata = {
       { url: "/favicon-light.svg", media: "(prefers-color-scheme: light)" },
       { url: "/favicon-dark.svg", media: "(prefers-color-scheme: dark)" },
     ],
+    // iOS home-screen icon: Safari ignores SVG favicons here.
+    apple: "/apple-touch-icon.png",
   },
+};
+
+// Tints the Android Chrome / Safari browser bar to match the mobile header.
+export const viewport: Viewport = {
+  themeColor: "#f5f7f8",
 };
 
 /*

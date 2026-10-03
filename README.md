@@ -145,6 +145,8 @@ Two production-only issues were found and fixed this way:
 - **Hydration error on Netlify.** Netlify injects a "hosted on Netlify" comment into `<head>`, which made React re-render every page on the client (error #418). A small inline script removes it before hydration.
 - **Slow LCP on mobile.** Hero text waited for JavaScript before fading in. Above-the-fold reveals now run as pure CSS animations on load, which cut the LCP element render delay from about 1.3 s to 0.17 s.
 
+Mobile browsers (iOS and Android) got a separate pass. All pages were checked at 360, 390 and 430 px widths for horizontal overflow. The native filter controls on `/projects` keep a 16 px font under the 14 px label, so iOS Safari does not zoom in when they are tapped. The site also has an Apple touch icon (iOS ignores SVG favicons for the home screen) and a `theme-color` that tints the browser bar to match the mobile header.
+
 ## Third-party assets
 
 - **Neue Haas Unica W1G** is a commercial Monotype typeface licensed by Devtailor for devtailor.com. It is included only because this is a homework assignment for Devtailor and must not be reused elsewhere.
